@@ -1,0 +1,1 @@
+将dbserver/lib目录下的jar拷贝到当前目录即可
