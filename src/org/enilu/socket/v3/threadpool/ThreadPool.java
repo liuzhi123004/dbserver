@@ -2,13 +2,15 @@ package org.enilu.socket.v3.threadpool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.enilu.socket.v3.commons.Constants;
 
 /**
- * 线程池 单例模式
+ * 线程池
  * 
  * @author enilu
  * 
@@ -19,7 +21,8 @@ public class ThreadPool {
 	private static ThreadPool instance;
 	private static List<WorkerThread> idleThreads = new ArrayList<WorkerThread>();// 空闲线程队列
 	private static List<WorkerThread> busyThreads = new ArrayList<WorkerThread>();// 工作状态线程队列
-	private static List<Object> workers = new ArrayList<Object>();// 工作队列
+	private static BlockingDeque<Object> workers = new LinkedBlockingDeque<Object>(
+			50);// 工作队列
 	private static int threadNum = 10;
 
 	private ThreadPool() {
@@ -59,7 +62,7 @@ public class ThreadPool {
 	 * @return
 	 */
 	public static ThreadPool getTheadPool() {
-		return getThreadPool(10);// 默认生成10个线程
+		return getThreadPool(50);// 默认生成50个线程
 	}
 
 	/**
@@ -78,19 +81,18 @@ public class ThreadPool {
 
 			logger.log(Level.INFO, "threadPool startWork");
 			while (true) {
-				if (workers.size() == 0 || idleThreads.size() == 0) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					continue;
-				}
-
 				WorkerThread thread = idleThreads.remove(0);
-				thread.setWorker((Worker) workers.remove(0));
-				thread.start();
-				busyThreads.add(thread);
+
+				try {
+					logger.log(Level.INFO, "begin get worker");
+					Worker worker = (Worker) workers.take();
+					logger.log(Level.INFO, "geted worker");
+					thread.setWorker(worker);
+					thread.start();
+					busyThreads.add(thread);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 
 			}
 
@@ -104,8 +106,14 @@ public class ThreadPool {
 	 * @param worker
 	 */
 	public void push(Worker worker) {
-		logger.log(Level.INFO, "push a worker to thredPool");
-		this.workers.add(worker);
+		logger.log(Level.INFO,
+				"push a worker to thredPool,before push the size of queue is:"
+						+ this.workers.size());
+		// this.workers.add(worker);
+		this.workers.offer(worker);
+		logger.log(Level.INFO,
+				"push a worker to thredPool,after push the size of queue is:"
+						+ this.workers.size());
 	}
 
 	/**
