@@ -7,13 +7,6 @@ import java.util.Scanner;
  * 
  * 客户端控制台
  * <p>
- * descript1
- * <li>descirpt1.1</li>
- * <p>
- * descript2
- * <li>descript2.1
- * <li>
- * <p>
  * 
  * @author enilu(82552623@qq.com)
  * 
