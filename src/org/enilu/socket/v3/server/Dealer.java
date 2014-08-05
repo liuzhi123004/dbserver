@@ -14,7 +14,6 @@ import org.enilu.socket.v3.commons.ByteUtil;
 import org.enilu.socket.v3.commons.Constants;
 import org.enilu.socket.v3.commons.MsgHeader;
 import org.enilu.socket.v3.commons.MsgSender;
-import org.enilu.socket.v3.threadpool.ThreadPool;
 
 /**
  * 类说明：数据接收和转发，Socket连接请求处理类
@@ -138,7 +137,7 @@ public class Dealer {
 
 					// 向客户端返回数据
 					ServerService work = new ServerService(channel, msgSender);
-					ThreadPool.getThreadPool(10).push(work);
+					WorkerQueue.getInstance().push(work);
 
 				} catch (IOException e) {
 					/**
