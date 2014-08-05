@@ -1,17 +1,21 @@
-/**
- * 
- */
 package org.enilu.socket.v3.client;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * 客户端控制台
  * 
- * @author enilu
+ * 客户端控制台
+ * <p>
+ * descript1
+ * <li>descirpt1.1</li>
+ * <p>
+ * descript2
+ * <li>descript2.1
+ * <li>
+ * <p>
+ * 
+ * @author enilu(82552623@qq.com)
  * 
  */
 public class Console {
@@ -20,90 +24,116 @@ public class Console {
 	static boolean quit = false;
 
 	/**
+	 * 启动客户端控制台
+	 * 
 	 * @param args
-	 * @throws IOException
-	 * @throws
+	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
 		Scanner input = new Scanner(System.in);
 		System.out.println("#welcome to cnensql console#");
 		System.out.print("#");
-		String text = "";
+		String cmd = "";
 		while (!quit) {
 			System.out.print(prefix);
-			text = input.nextLine();
-			execute(text);
+			cmd = input.nextLine();
+			execute(cmd);
 		}
 
 		input.close();
 	}
 
-	private static void execute(String text) throws Exception {
-		if (text.startsWith("connect")) {
-
-			String[] textArr = text.split(" ");
-			conn = ConnectionFactory.getConnection(textArr[1].trim(),
-					Integer.valueOf(textArr[2].trim()), null, null, null);
-			if (conn != null) {
-				System.out.println(prefix + "success");
-
-			} else {
-				System.out.println(prefix + "connected failed");
-			}
-			return;
-
-		} else if (conn == null && !"quit".equals(text)) {
+	/**
+	 * 处理客户端命令
+	 * 
+	 * @param cmd
+	 *            客户输入的命令
+	 * @throws Exception
+	 */
+	private static void execute(String cmd) throws Exception {
+		String cmdheader = cmd.split("\\s+")[0];
+		if (conn == null && !"quit".equals(cmdheader)
+				&& !"connect".equals(cmdheader)) {
+			// 未连接服务器端提醒
 			System.out.println(prefix
 					+ "please connect database,eg:connect hostname port");
 			return;
-		} else if (text.equals("quit")) {
+		}
+		if (!"quit".equals(cmdheader) && cmd.split("\\s+").length == 1) {
+			// 非法命令
+			System.out.println(prefix
+					+ "your input characters is illegal,please input again:");
+			return;
+		}
+		switch (cmdheader) {
+		case "connect":
+			// 连接命令处理
+			if (conn == null) {
+				String[] textArr = cmd.split(" ");
+				conn = ConnectionFactory.getConnection(textArr[1].trim(),
+						Integer.valueOf(textArr[2].trim()), null, null, null);
+				if (conn != null) {
+					System.out.println(prefix + "success");
+
+				} else {
+					System.out.println(prefix + "connected failed");
+				}
+			} else {
+				System.out.println(prefix
+						+ "you has connected,don't connect again");
+			}
+			break;
+		case "quit":
+
+			// 退出连接
 			if (conn != null) {
 				conn.close();
 			}
 			System.out.println(prefix + "bye");
 			conn = null;
 			quit = true;
-			return;
-		} else {
-			Pattern p = Pattern.compile("[a-z]+[ ]+\\{[a-z]+:.+\\}");
-			Matcher m = p.matcher(text);
-			if (!m.matches()) {
-				System.out
-						.println(prefix
-								+ "please input legal characters. ,eg：query {id:1,name:'张三'}");
-				return;
-			}
+			break;
+		case "query":
 
-		}
-		if (text.startsWith("query")) {
-
+			// 查询命令
 			Statement st2 = conn.createStatement();
 			System.out.println(prefix + "result:");
-			List list = st2.query(text);
+			List list = st2.query(cmd);
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i));
 			}
-		} else if (text.startsWith("update")) {
 
-			Statement st2 = conn.createStatement();
+			break;
+		case "update":
+
+			// 更新命令
+			Statement st3 = conn.createStatement();
 			System.out.println(prefix + "result:");
-			System.out.println(st2.execute(text));
+			System.out.println(st3.execute(cmd));
 
-		} else if (text.startsWith("delete")) {
+			break;
+		case "delete":
 
-			Statement st2 = conn.createStatement();
+			// 删除命令
+			Statement st4 = conn.createStatement();
 			System.out.println(prefix + "result:");
-			System.out.println(st2.execute(text));
-		} else if (text.startsWith("insert")) {
+			System.out.println(st4.execute(cmd));
+			break;
+		case "insert":
 
-			Statement st2 = conn.createStatement();
+			// 插入命令
+			Statement st5 = conn.createStatement();
 			System.out.println(prefix + "result:");
-			System.out.println(st2.execute(text));
-		} else {
+			System.out.println(st5.execute(cmd));
+			break;
+		default:
+
+			// 非法命令
 			System.out.println(prefix
 					+ "your input characters is illegal,please input again:");
-		}
 
+			break;
+		}
 	}
 
 }
