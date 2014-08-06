@@ -25,18 +25,17 @@ public class ServiceEngine {
 
 	}
 
-	public static ServiceEngine getInstance() {
+	public static ServiceEngine bootstrap() {
 		if (instance == null) {
 			instance = new ServiceEngine();
+
+			logger.log(Level.INFO, "bootstrap serviceEngine");
+			threadPool = ThreadPool.getThreadPool(50);
+			Task task = new Task();
+			new Thread(task).start();
+
 		}
 		return instance;
-	}
-
-	public void bootstrap() {
-		logger.log(Level.INFO, "bootstrap serviceEngine");
-		threadPool = ThreadPool.getThreadPool(50);
-		Task task = new Task();
-		new Thread(task).start();
 	}
 
 	/**

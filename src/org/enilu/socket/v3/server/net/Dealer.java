@@ -14,7 +14,7 @@ import org.enilu.socket.v3.commons.model.MsgHeader;
 import org.enilu.socket.v3.commons.model.MsgSender;
 import org.enilu.socket.v3.commons.util.ByteUtil;
 import org.enilu.socket.v3.commons.util.Constants;
-import org.enilu.socket.v3.server.service.ServerService;
+import org.enilu.socket.v3.server.threadpool.ServiceWorker;
 import org.enilu.socket.v3.server.threadpool.WorkerQueue;
 
 /**
@@ -138,7 +138,7 @@ public class Dealer {
 					msgSender.setData(ByteUtil.byteToJsonString(temp2));
 
 					// 向客户端返回数据
-					ServerService work = new ServerService(channel, msgSender);
+					ServiceWorker work = new ServiceWorker(channel, msgSender);
 					WorkerQueue.getInstance().push(work);
 
 				} catch (IOException e) {

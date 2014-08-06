@@ -36,7 +36,7 @@ public class Deamon implements Runnable {
 			serverChannel.configureBlocking(false);
 			serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 			this.clientChannels = new ArrayList<SocketChannel>();
-			ServiceEngine.getInstance().bootstrap();
+			ServiceEngine.bootstrap();
 			// ThreadPool.getTheadPool();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE,
