@@ -1,6 +1,8 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.driver;
 
 import java.io.IOException;
+
+import org.enilu.socket.v3.client.net.Deamon;
 
 public class ConnectionFactory {
 	public static Connection getConnection(String ip, int port, String dbname,

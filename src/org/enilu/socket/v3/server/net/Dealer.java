@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.server;
+package org.enilu.socket.v3.server.net;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.ByteUtil;
-import org.enilu.socket.v3.commons.Constants;
-import org.enilu.socket.v3.commons.MsgHeader;
-import org.enilu.socket.v3.commons.MsgSender;
+import org.enilu.socket.v3.commons.model.MsgHeader;
+import org.enilu.socket.v3.commons.model.MsgSender;
+import org.enilu.socket.v3.commons.util.ByteUtil;
+import org.enilu.socket.v3.commons.util.Constants;
+import org.enilu.socket.v3.server.service.ServerService;
+import org.enilu.socket.v3.server.threadpool.WorkerQueue;
 
 /**
  * 类说明：数据接收和转发，Socket连接请求处理类

@@ -1,4 +1,6 @@
-package org.enilu.socket.v3.commons;
+package org.enilu.socket.v3.commons.model;
+
+import org.enilu.socket.v3.commons.util.ByteUtil;
 
 /**
  * 定义socket传输时的消息的头部内容

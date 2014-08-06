@@ -1,9 +1,7 @@
-package org.enilu.socket.v3.server;
+package org.enilu.socket.v3.server.threadpool;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
-
-import org.enilu.socket.v3.threadpool.Worker;
 
 /**
  * 消息队列工具类,包含对worker队列的简单操作

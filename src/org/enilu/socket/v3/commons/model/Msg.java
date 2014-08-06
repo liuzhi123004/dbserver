@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.commons;
+package org.enilu.socket.v3.commons.model;
 
 public abstract class Msg {
 	public abstract byte[] getBytes();

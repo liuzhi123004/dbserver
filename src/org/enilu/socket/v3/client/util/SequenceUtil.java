@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.util;
 
 public class SequenceUtil {
 	private static int sequence;

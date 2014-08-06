@@ -3,6 +3,10 @@ package org.enilu.socket.v3.client;
 import java.util.List;
 import java.util.Scanner;
 
+import org.enilu.socket.v3.client.driver.Connection;
+import org.enilu.socket.v3.client.driver.ConnectionFactory;
+import org.enilu.socket.v3.client.driver.Statement;
+
 /**
  * 
  * 客户端控制台
@@ -12,9 +16,9 @@ import java.util.Scanner;
  * 
  */
 public class Console {
-	static String prefix = "cnensql>";
-	static Connection conn = null;
-	static boolean quit = false;
+	String prefix = "cnensql>";
+	Connection conn = null;
+	boolean quit = false;
 
 	/**
 	 * 启动客户端控制台
@@ -22,7 +26,7 @@ public class Console {
 	 * @param args
 	 * @throws Exception
 	 */
-	public static void main(String[] args) throws Exception {
+	public void start() throws Exception {
 		Scanner input = new Scanner(System.in);
 		System.out.println("#welcome to cnensql console#");
 		System.out.print("#");
@@ -43,7 +47,7 @@ public class Console {
 	 *            客户输入的命令
 	 * @throws Exception
 	 */
-	private static void execute(String cmd) throws Exception {
+	private void execute(String cmd) throws Exception {
 		String cmdheader = cmd.split("\\s+")[0];
 		if (conn == null && !"quit".equals(cmdheader)
 				&& !"connect".equals(cmdheader)) {

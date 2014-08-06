@@ -1,11 +1,12 @@
-package org.enilu.socket.v3.server;
+package org.enilu.socket.v3.server.service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.threadpool.ThreadPool;
-import org.enilu.socket.v3.threadpool.Worker;
-import org.enilu.socket.v3.threadpool.WorkerThread;
+import org.enilu.socket.v3.server.threadpool.ThreadPool;
+import org.enilu.socket.v3.server.threadpool.Worker;
+import org.enilu.socket.v3.server.threadpool.WorkerQueue;
+import org.enilu.socket.v3.server.threadpool.WorkerThread;
 
 /**
  * 后台服务类，从worker队列中获取任务，并从线程池中获取线程进行处理

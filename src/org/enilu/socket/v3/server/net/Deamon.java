@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.server;
+package org.enilu.socket.v3.server.net;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.Constants;
+import org.enilu.socket.v3.commons.util.Constants;
+import org.enilu.socket.v3.server.service.ServiceEngine;
 
 public class Deamon implements Runnable {
 	private static Logger logger = Logger.getLogger(Deamon.class.getName());

@@ -1,9 +1,11 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.driver;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.Constants;
+import org.enilu.socket.v3.client.net.Deamon;
+import org.enilu.socket.v3.client.net.MsgQueue;
+import org.enilu.socket.v3.commons.util.Constants;
 
 public class Connection {
 	private static Logger logger = Logger.getLogger(Connection.class.getName());

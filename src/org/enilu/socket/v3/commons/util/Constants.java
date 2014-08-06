@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.commons;
+package org.enilu.socket.v3.commons.util;
 
 import java.util.logging.Level;
 

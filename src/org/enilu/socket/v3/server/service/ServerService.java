@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.enilu.socket.v3.server;
+package org.enilu.socket.v3.server.service;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.Constants;
-import org.enilu.socket.v3.commons.MsgReplay;
-import org.enilu.socket.v3.commons.MsgSender;
-import org.enilu.socket.v3.threadpool.Worker;
+import org.enilu.socket.v3.commons.model.MsgReplay;
+import org.enilu.socket.v3.commons.model.MsgSender;
+import org.enilu.socket.v3.commons.util.Constants;
+import org.enilu.socket.v3.server.threadpool.Worker;
 
 /**
  * 服务器段服务类

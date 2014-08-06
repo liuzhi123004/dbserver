@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.enilu.socket.v3.commons.ByteUtil;
+import org.enilu.socket.v3.commons.util.ByteUtil;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonGenerationException;

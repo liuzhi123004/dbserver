@@ -1,13 +1,15 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.driver;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.Constants;
-import org.enilu.socket.v3.commons.MsgHeader;
-import org.enilu.socket.v3.commons.MsgReplay;
-import org.enilu.socket.v3.commons.MsgSender;
+import org.enilu.socket.v3.client.net.MsgQueue;
+import org.enilu.socket.v3.client.util.SequenceUtil;
+import org.enilu.socket.v3.commons.model.MsgHeader;
+import org.enilu.socket.v3.commons.model.MsgReplay;
+import org.enilu.socket.v3.commons.model.MsgSender;
+import org.enilu.socket.v3.commons.util.Constants;
 
 /**
  * 操作对象

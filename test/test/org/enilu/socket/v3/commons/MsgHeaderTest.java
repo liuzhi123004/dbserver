@@ -1,6 +1,6 @@
 package test.org.enilu.socket.v3.commons;
 
-import org.enilu.socket.v3.commons.MsgHeader;
+import org.enilu.socket.v3.commons.model.MsgHeader;
 import org.junit.Test;
 
 public class MsgHeaderTest {

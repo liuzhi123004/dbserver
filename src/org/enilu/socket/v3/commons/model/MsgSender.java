@@ -1,4 +1,6 @@
-package org.enilu.socket.v3.commons;
+package org.enilu.socket.v3.commons.model;
+
+import org.enilu.socket.v3.commons.util.ByteUtil;
 
 public class MsgSender extends Msg {
 	private MsgHeader header;// 消息头

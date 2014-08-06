@@ -1,12 +1,12 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.net;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.enilu.socket.v3.commons.Msg;
-import org.enilu.socket.v3.commons.MsgReplay;
-import org.enilu.socket.v3.commons.StringMsg;
+import org.enilu.socket.v3.commons.model.Msg;
+import org.enilu.socket.v3.commons.model.MsgReplay;
+import org.enilu.socket.v3.commons.model.StringMsg;
 
 /**
  * 消息队列控制类 每个客户端实际只需要一个消息队列，所以采用了单例模式

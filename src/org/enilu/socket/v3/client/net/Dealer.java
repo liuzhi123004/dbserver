@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.net;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -6,11 +6,11 @@ import java.nio.channels.SocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.enilu.socket.v3.commons.ByteUtil;
-import org.enilu.socket.v3.commons.Constants;
-import org.enilu.socket.v3.commons.Msg;
-import org.enilu.socket.v3.commons.MsgHeader;
-import org.enilu.socket.v3.commons.MsgReplay;
+import org.enilu.socket.v3.commons.model.Msg;
+import org.enilu.socket.v3.commons.model.MsgHeader;
+import org.enilu.socket.v3.commons.model.MsgReplay;
+import org.enilu.socket.v3.commons.util.ByteUtil;
+import org.enilu.socket.v3.commons.util.Constants;
 
 /**
  * 类说明：SocketChannel信息处理类。完成数据的接收与发送

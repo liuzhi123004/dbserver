@@ -1,7 +1,9 @@
-package org.enilu.socket.v3.commons;
+package org.enilu.socket.v3.commons.model;
 
 import java.io.IOException;
 import java.util.Map;
+
+import org.enilu.socket.v3.commons.util.ByteUtil;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;

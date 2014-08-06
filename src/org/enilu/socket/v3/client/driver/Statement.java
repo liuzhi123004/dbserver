@@ -1,4 +1,4 @@
-package org.enilu.socket.v3.client;
+package org.enilu.socket.v3.client.driver;
 
 import java.util.List;
 
