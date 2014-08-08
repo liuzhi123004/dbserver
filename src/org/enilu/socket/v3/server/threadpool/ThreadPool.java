@@ -33,7 +33,6 @@ public class ThreadPool {
 	 * @return
 	 */
 	public static ThreadPool getThreadPool(int num) {
-		num = 1;
 		if (instance == null) {
 			logger.log(Level.INFO, "create " + num
 					+ " threads add to threadPool");
@@ -64,7 +63,7 @@ public class ThreadPool {
 	 * @return
 	 */
 	public static ThreadPool getTheadPool() {
-		return getThreadPool(1);// 默认生成50个线程
+		return getThreadPool(50);// 默认生成50个线程
 	}
 
 	/**
