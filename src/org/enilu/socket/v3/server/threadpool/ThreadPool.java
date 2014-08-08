@@ -38,13 +38,13 @@ public class ThreadPool {
 			instance = new ThreadPool();
 			threadNum = num;
 			for (int i = 0; i < num; i++) {
-				idleThreads.add(new WorkerThread());
+				idleThreads.add(new WorkerThread(i));
 			}
 
 		}
 		int xiangchaNum = num > threadNum ? (num - threadNum) : 0;
 		for (int i = 0; i < xiangchaNum; i++) {
-			idleThreads.add(new WorkerThread());
+			idleThreads.add(new WorkerThread(i));
 		}
 		return instance;
 

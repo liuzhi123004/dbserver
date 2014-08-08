@@ -16,9 +16,11 @@ public class WorkerThread extends Thread {
 			.getName());
 	public static final int IDLE = 0;
 	public static final int BUSY = 1;
+	private int id;
 
-	public WorkerThread() {
+	public WorkerThread(int id) {
 		super();
+		this.id = id;
 		logger.setLevel(Constants.log_level);
 	}
 
@@ -44,7 +46,7 @@ public class WorkerThread extends Thread {
 	@Override
 	public void run() {
 		this.status = WorkerThread.BUSY;
-		logger.log(Level.INFO, "start work");
+		logger.log(Level.INFO, "Thread " + id + "start work");
 		this.worker.work();
 		this.status = WorkerThread.IDLE;
 		ThreadPool.getTheadPool().returnThread(this);
