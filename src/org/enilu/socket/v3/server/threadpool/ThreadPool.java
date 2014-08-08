@@ -17,9 +17,10 @@ public class ThreadPool {
 
 	private static Logger logger = Logger.getLogger(ThreadPool.class.getName());
 	private static ThreadPool instance;
-	private static List<WorkerThread> idleThreads = new ArrayList<WorkerThread>();// 空闲线程队列
-	private static List<WorkerThread> busyThreads = new ArrayList<WorkerThread>();// 工作状态线程队列
+	private static List<WorkerThread> pool = new ArrayList<WorkerThread>();// 线程队列
 	private static int threadNum = 10;
+	private static int idleCount = 0;
+	private static int busyCount = 0;
 
 	private ThreadPool() {
 		logger.setLevel(Constants.log_level);
@@ -32,19 +33,26 @@ public class ThreadPool {
 	 * @return
 	 */
 	public static ThreadPool getThreadPool(int num) {
+		num = 1;
 		if (instance == null) {
 			logger.log(Level.INFO, "create " + num
 					+ " threads add to threadPool");
 			instance = new ThreadPool();
 			threadNum = num;
 			for (int i = 0; i < num; i++) {
-				idleThreads.add(new WorkerThread(i));
+				idleCount++;
+				WorkerThread wt = new WorkerThread(i);
+				wt.start();
+				pool.add(wt);
 			}
 
 		}
 		int xiangchaNum = num > threadNum ? (num - threadNum) : 0;
 		for (int i = 0; i < xiangchaNum; i++) {
-			idleThreads.add(new WorkerThread(i));
+			idleCount++;
+			WorkerThread wt = new WorkerThread(i);
+			wt.start();
+			pool.add(wt);
 		}
 		return instance;
 
@@ -56,31 +64,42 @@ public class ThreadPool {
 	 * @return
 	 */
 	public static ThreadPool getTheadPool() {
-		return getThreadPool(50);// 默认生成50个线程
+		return getThreadPool(1);// 默认生成50个线程
 	}
 
 	/**
-	 * 返还使用的thread
+	 * 修改线程状态计数器
 	 * 
 	 * @param thread
 	 */
-	public void returnThread(WorkerThread thread) {
-		logger.log(Level.INFO, "return thread to idleThreads");
-		logger.log(Level.INFO,
-				"the size of idleThreads is:" + idleThreads.size()
-						+ " size of busyThreads is:" + busyThreads.size());
-		idleThreads.add(thread);// 返还到空闲进程列表中
-		busyThreads.remove(thread);// 从繁忙进程列表中移除当前线程
-		logger.log(Level.INFO,
-				"the size of idleThreads is:" + idleThreads.size()
-						+ " size of busyThreads is:" + busyThreads.size());
+	public void returnThread() {
+		synchronized (this) {
+			idleCount++;
+			busyCount--;
+		}
 	}
 
 	public WorkerThread get() {
-		WorkerThread thread = idleThreads.remove(0);
-		if (thread != null) {
-			busyThreads.add(thread);
+		synchronized (this) {
+			WorkerThread thread = null;
+			while (thread == null) {
+				for (WorkerThread t : pool) {
+					if (t.getStatus() == WorkerThread.IDLE) {
+						thread = t;
+					}
+				}
+			}
+			return thread;
 		}
-		return thread;
+
 	}
+
+	public int getIdleCount() {
+		return idleCount;
+	}
+
+	public int getBusyCount() {
+		return busyCount;
+	}
+
 }

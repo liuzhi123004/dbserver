@@ -53,12 +53,9 @@ public class ServiceEngine {
 		public void run() {
 
 			while (true) {
-				logger.log(Level.INFO, "begin get worker");
 				Worker worker = WorkerQueue.getInstance().take();
 				WorkerThread thread = threadPool.get();
-				logger.log(Level.INFO, "geted worker");
 				thread.setWorker(worker);
-				thread.start();
 			}
 
 		}

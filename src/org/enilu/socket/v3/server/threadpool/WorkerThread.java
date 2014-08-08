@@ -16,16 +16,17 @@ public class WorkerThread extends Thread {
 			.getName());
 	public static final int IDLE = 0;
 	public static final int BUSY = 1;
-	private int id;
+	private int id;// 线程id
+	private int status;// 0:idle,1:busy
 
 	public WorkerThread(int id) {
 		super();
 		this.id = id;
+		status = 0;
 		logger.setLevel(Constants.log_level);
 	}
 
 	private Worker worker;
-	private int status;// 0:idle,1:busy
 
 	public int getStatus() {
 		return status;
@@ -45,12 +46,22 @@ public class WorkerThread extends Thread {
 
 	@Override
 	public void run() {
-		this.status = WorkerThread.BUSY;
-		logger.log(Level.INFO, "Thread " + id + "start work");
-		this.worker.work();
-		this.status = WorkerThread.IDLE;
-		ThreadPool.getTheadPool().returnThread(this);
-
+		while (true) {
+			if (this.status == WorkerThread.IDLE && this.worker != null) {
+				this.status = WorkerThread.BUSY;
+				logger.log(Level.INFO, "Thread " + id + "start work");
+				this.worker.work();
+				this.status = WorkerThread.IDLE;
+				this.worker = null;
+				ThreadPool.getTheadPool().returnThread();
+			} else {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

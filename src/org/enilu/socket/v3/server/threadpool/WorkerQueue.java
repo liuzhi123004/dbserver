@@ -31,11 +31,14 @@ public class WorkerQueue {
 	}
 
 	public Worker take() {
-		try {
-			return workers.take();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		synchronized (this) {
+
+			try {
+				return workers.take();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
-		return null;
 	}
 }
